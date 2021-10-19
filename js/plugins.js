@@ -21,4 +21,53 @@
   }
 }());
 
+window.framesHistory = [];
+
+// count frames checkbox
+document
+  .querySelector('#count-frames')
+  .addEventListener(
+    'click',
+    event => {
+      window.countFrames = event.target.checked;
+    },
+  );
+
+// frames counter on/off
+document
+  .querySelector('#count-frames')
+  .addEventListener(
+    'click',
+    event => {
+      const el = document.querySelector('.show-frames');
+
+      event.target.checked ?
+        el.classList.remove('hide') :
+        el.classList.add('hide');
+
+      requestAnimationFrame(countFrames);
+    },
+  );
+
+function countFrames() {
+  if (!window.countFrames) return;
+
+  const timestamp = Date.now();
+  window.framesHistory.push(timestamp);
+
+  while(
+    window.framesHistory.length &&
+    timestamp - window.framesHistory[0] > 1000
+  ) {
+    console.log('never');
+    window.framesHistory.shift();
+  }
+
+  document
+    .querySelector('.show-frames span')
+    .textContent = window.framesHistory.length;
+
+  requestAnimationFrame(countFrames);
+}
+
 // Place any jQuery/helper plugins in here.
