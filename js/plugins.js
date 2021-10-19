@@ -23,7 +23,7 @@
 
 window.framesHistory = [];
 
-function countFrames() {
+function countFramesFn() {
   if (!window.countFrames) return;
 
   const timestamp = Date.now();
@@ -40,7 +40,7 @@ function countFrames() {
     .querySelector('.show-frames span')
     .textContent = window.framesHistory.length;
 
-  requestAnimationFrame(countFrames);
+  requestAnimationFrame(countFramesFn);
 }
 
 // count frames checkbox
@@ -65,7 +65,7 @@ document
         el.classList.remove('hide') :
         el.classList.add('hide');
 
-      requestAnimationFrame(countFrames);
+      requestAnimationFrame(countFramesFn);
     },
   );
 
