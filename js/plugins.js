@@ -59,7 +59,6 @@ function countFrames() {
     window.framesHistory.length &&
     timestamp - window.framesHistory[0] > 1000
   ) {
-    console.log('never');
     window.framesHistory.shift();
   }
 
