@@ -23,6 +23,26 @@
 
 window.framesHistory = [];
 
+function countFrames() {
+  if (!window.countFrames) return;
+
+  const timestamp = Date.now();
+  window.framesHistory.push(timestamp);
+
+  while(
+    window.framesHistory.length &&
+    timestamp - window.framesHistory[0] > 1000
+    ) {
+    window.framesHistory.shift();
+  }
+
+  document
+    .querySelector('.show-frames span')
+    .textContent = window.framesHistory.length;
+
+  requestAnimationFrame(countFrames);
+}
+
 // count frames checkbox
 document
   .querySelector('#count-frames')
@@ -48,25 +68,5 @@ document
       requestAnimationFrame(countFrames);
     },
   );
-
-function countFrames() {
-  if (!window.countFrames) return;
-
-  const timestamp = Date.now();
-  window.framesHistory.push(timestamp);
-
-  while(
-    window.framesHistory.length &&
-    timestamp - window.framesHistory[0] > 1000
-  ) {
-    window.framesHistory.shift();
-  }
-
-  document
-    .querySelector('.show-frames span')
-    .textContent = window.framesHistory.length;
-
-  requestAnimationFrame(countFrames);
-}
 
 // Place any jQuery/helper plugins in here.
